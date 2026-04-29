@@ -1,17 +1,15 @@
 # Import libraries
-import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.cluster import AgglomerativeClustering
 from scipy.cluster.hierarchy import dendrogram, linkage
 
-# Sample dataset
-X = np.array([
-    [1, 2], [2, 3], [3, 4],
-    [8, 7], [9, 8], [10, 9]
-])
+# Load dataset from CSV
+data = pd.read_csv("lab13.csv")
+X = data.values
 
 # Create Agglomerative model
-model = AgglomerativeClustering(n_clusters=2, linkage='ward')
+model = AgglomerativeClustering(n_clusters=3, linkage='ward')
 
 # Fit and predict
 labels = model.fit_predict(X)
@@ -21,6 +19,8 @@ print("Cluster Labels:", labels)
 
 # Plot clusters
 plt.scatter(X[:, 0], X[:, 1], c=labels)
+plt.xlabel("X values")
+plt.ylabel("Y values")
 plt.title("Agglomerative Clustering")
 plt.show()
 

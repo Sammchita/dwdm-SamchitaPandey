@@ -1,16 +1,16 @@
 # Import libraries
-import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+import pandas as pd   # NEW
 
-# Sample dataset
-X = np.array([
-    [1, 2], [1.5, 1.8], [5, 8],
-    [8, 8], [1, 0.6], [9, 11]
-])
+# Load dataset from CSV file
+data = pd.read_csv("lab11-K-MeanData.csv")
 
-# Create K-Means model (K = 2)
-kmeans = KMeans(n_clusters=2, random_state=42)
+# Convert to numpy array (important for KMeans)
+X = data.values
+
+# Create K-Means model (K = 3)
+kmeans = KMeans(n_clusters=3, random_state=42)
 
 # Fit model
 kmeans.fit(X)
@@ -27,6 +27,13 @@ print("Centroids:\n", centroids)
 
 # Plot clusters
 plt.scatter(X[:, 0], X[:, 1], c=labels)
-plt.scatter(centroids[:, 0], centroids[:, 1], marker='X')
-plt.title("K-Means Clustering")
+
+# Plot centroids
+plt.scatter(centroids[:, 0], centroids[:, 1], marker='X', s=200)
+
+# Labels and title
+plt.xlabel("Age")
+plt.ylabel("Spending Score")
+plt.title("K-Means Clustering (CSV Dataset)")
+
 plt.show()
